@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(113, 255, 255);
+}
+
+#gameboard {
+    background-color: rgb(95, 180, 255);
+    width: 60%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+    padding: 30px 0px;
+    margin-top: 50px;
+    border-radius: 30px;
+}
+
+#points {
+    display: flex;
+    gap: 200px;
+    font-size: 30px;
+    color: rgb(32, 113, 204);
+}
+
+#playfield {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 300px;
+    height: 300px;
+    gap: 5px;
+    background-color: rgb(32, 113, 204);
+}
+
+#playfield>div {
+    background-color: rgb(95, 180, 255);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
