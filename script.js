@@ -2,12 +2,15 @@ const playRoundFactory = () => {
     let currentPlayer = 'playerOne';
     let slotArray = [];
     let winner = '';
+    let AI_Mode = 'ON';
 
     const switchPlayers = () => {
-        if (currentPlayer === 'playerOne') {
-            currentPlayer = 'playerTwo';
-        } else if (currentPlayer === 'playerTwo') {
+        if (currentPlayer === 'playerTwo' || currentPlayer === 'AI') {
             currentPlayer = 'playerOne';
+        } else if (AI_Mode === 'ON' && currentPlayer === 'playerOne') {
+            currentPlayer = 'AI';
+        } else if (currentPlayer === 'playerOne') {
+            currentPlayer = 'playerTwo';
         };
     };
 
@@ -26,14 +29,27 @@ const playRoundFactory = () => {
             if (slotArray[grid.slot] === '') {
                 grid.textContent = 'O';
                 slotArray[grid.slot] = 'O';
-                switchPlayers();
             };
         };
         checkForWinners();
+        if (AI_Mode === 'ON' && currentPlayer === 'AI' && winner === '' && slotArray.filter((e) => e != '')) {
+            aiStep();
+        };
+    };
+
+    const aiStep = () => {
+        let slot = Math.floor(Math.random() * 9);
+        if (slotArray[slot] === '') {
+            const A_EYE = Array.from(document.querySelectorAll('#playfield>div'));
+            slotArray[slot] = 'O';
+            console.log(slotArray);
+            console.log(A_EYE);
+            A_EYE[slot].textContent = 'O';
+            switchPlayers();
+        } else aiStep();
     };
 
     const checkForWinners = () => {
-        console.log(slotArray);
         if (
             slotArray[0] === 'X' && slotArray[1] === 'X' && slotArray[2] === 'X' ||
             slotArray[3] === 'X' && slotArray[4] === 'X' && slotArray[5] === 'X' ||
@@ -65,7 +81,6 @@ const playRoundFactory = () => {
 
     const newGame = () => {
         slotArray = [];
-        console.log(winner);
         if (winner === 'playerOne') {
             currentPlayer = 'playerTwo';
         } else if (winner === 'playerTwo') {
@@ -83,6 +98,7 @@ const playRoundFactory = () => {
         makeSlotArray,
         slotArrayCheck,
         newGame,
+        aiStep,
     };
 };
 
